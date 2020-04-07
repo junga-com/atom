@@ -103,6 +103,12 @@ module.exports = function parseCommandLine(processArgs) {
       'Run the specified specs and exit with error code on failures.'
     );
   options
+    .boolean('cli')
+    .describe(
+      'cli',
+      'Run a cli script file in the atom environment'
+    );
+  options
     .alias('m', 'main-process')
     .boolean('m')
     .describe('m', 'Run the specified specs in the main process.');
@@ -167,6 +173,7 @@ module.exports = function parseCommandLine(processArgs) {
   const benchmark = args['benchmark'];
   const benchmarkTest = args['benchmark-test'];
   const test = args['test'];
+  const cli = args['cli'];
   const mainProcess = args['main-process'];
   const timeout = args['timeout'];
   const newWindow = args['new-window'];
@@ -223,6 +230,7 @@ module.exports = function parseCommandLine(processArgs) {
     urlsToOpen,
     executedFrom,
     test,
+    cli,
     version,
     pidToKillWhenClosed,
     devMode,

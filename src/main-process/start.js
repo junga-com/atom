@@ -55,7 +55,16 @@ module.exports = function start(resourcePath, devResourcePath, startTime) {
     app.commandLine.appendSwitch('force-color-profile', colorProfile);
   }
 
+previousConsoleLog({test:args.test, cli:args.cli, mainProcess:args.mainProcess})
+
   if (handleStartupEventWithSquirrel()) {
+    return;
+  } else if (args.cli && args.mainProcess) {
+    args.headless = true;
+    console.log = previousConsoleLog;
+    app.on('ready', function() {
+      console.log('hi from cli landZ');
+    });
     return;
   } else if (args.test && args.mainProcess) {
     app.setPath(
@@ -64,6 +73,7 @@ module.exports = function start(resourcePath, devResourcePath, startTime) {
     );
     console.log = previousConsoleLog;
     app.on('ready', function() {
+console.log('testing testing, 1,2,3');
       const testRunner = require(path.join(
         args.resourcePath,
         'spec/main-process/mocha-test-runner'

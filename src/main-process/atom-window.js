@@ -157,6 +157,8 @@ module.exports = class AtomWindow extends EventEmitter {
     );
     if (hasPathToOpen && !this.isSpecWindow())
       this.openLocations(locationsToOpen);
+
+    console.log('!!!here, atomWinCtor ', typeof window, typeof global, typeof atom)
   }
 
   hasProjectPaths() {
